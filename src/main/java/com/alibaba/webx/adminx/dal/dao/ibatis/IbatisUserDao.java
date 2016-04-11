@@ -8,10 +8,15 @@ import com.alibaba.webx.adminx.dal.dao.UserDao;
 import com.alibaba.webx.adminx.dal.dataobject.User;
 
 public class IbatisUserDao extends SqlMapClientDaoSupport implements UserDao {
+
 	private static final Logger logger = LoggerFactory.getLogger(IbatisUserDao.class);
-	public User getUserById (String userId) {
+	public User getUserByUserId (String userId) {
 		// TODO Auto-generated method stub
 		logger.info("ibatisUserDao getUser");
 		return (User) getSqlMapClientTemplate().queryForObject("getUserByUserId", userId);
+	}
+
+	public int insertUser(User user) {
+		return getSqlMapClientTemplate().update("insertUser", user);
 	}
 }

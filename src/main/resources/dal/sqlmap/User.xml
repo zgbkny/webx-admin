@@ -10,6 +10,9 @@
     <resultMap id="userResult" class="user">
         <result property="userId" column="USER_ID" />
         <result property="password" column="PASSWORD" />
+        <result property="email" column="EMAIL" />
+        <result property="type" column="TYPE" />
+        <result property="role" column="ROLE" />
     </resultMap>
     <!--
       - ===============================================
@@ -24,6 +27,27 @@
         where
                 USER.USER_ID = #userId#
     ]]></select>
+
+    <!--
+      - ===============================================
+      - 创建一个user对象
+      - ===============================================
+    -->
+    <insert id="insertUser" parameterClass="user"><![CDATA[
+        insert into USER (
+                USER_ID,
+                PASSWORD,
+                EMAIL,
+                TYPE,
+                ROLE
+        ) values (
+                #userId#,
+                #password#,
+                #email#,
+                #type#,
+                #role#
+        )
+    ]]></insert>
     <!--
       - ===============================================
       - 验证userId、password，并返回user、account、profile
@@ -53,22 +77,7 @@
         from
                 USER
     ]]></select>-->
-    <!--
-      - ===============================================
-      - 创建一个user对象
-      - ===============================================
-     
-    <insert id="insertUser" parameterClass="user"><![CDATA[
-        insert into USER (
-                USER_ID,
-                PASSWORD,
-                ROLES
-        ) values (
-                #userId#,
-                #password#,
-                #role#
-        )
-    ]]></insert>-->
+
     <!--
       - ===============================================
       - 更新一个user对象

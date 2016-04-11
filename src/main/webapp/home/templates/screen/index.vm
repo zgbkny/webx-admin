@@ -1,3 +1,5 @@
+
+
 <form action="$homeLink.setTarget("index")" method="post">
   $csrfToken.hiddenField
   <input type="hidden" name="action" value="simple_action"/>

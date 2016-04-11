@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.webx.adminx.biz.UserManager;
 import com.alibaba.webx.adminx.dal.dao.UserDao;
 import com.alibaba.webx.adminx.dal.dataobject.User;
+import redis.clients.jedis.Jedis;
 
 public class UserManagerImpl implements UserManager {
 	@Autowired
@@ -15,12 +16,13 @@ public class UserManagerImpl implements UserManager {
 	public User login(String userId, String password) {
 		// TODO Auto-generated method stub
 		logger.info("UserManagerImpl login ");
+
 		return null;
 	}
 
 	public void register(User user) {
 		// TODO Auto-generated method stub
-		
+		userDao.insertUser(user);
 	}
 
 	public void update(User user) {
@@ -28,10 +30,15 @@ public class UserManagerImpl implements UserManager {
 		
 	}
 
+
 	public User getUser(String userId) {
 		// TODO Auto-generated method stub
 		logger.info("UserManagerImpl getUser");
-		User user = userDao.getUserById("we");
+		Jedis jedis = new Jedis("localhost");
+		jedis.set("foo", "bar");
+		String value = jedis.get("foo");
+		logger.info("UserManagerImpl login " + value);
+		User user = userDao.getUserByUserId(userId);
 		if (user != null) {
 			logger.info("user:" + user.getPassword());
 		}
