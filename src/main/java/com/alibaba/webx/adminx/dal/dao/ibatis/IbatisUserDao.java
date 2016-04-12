@@ -10,10 +10,15 @@ import com.alibaba.webx.adminx.dal.dataobject.User;
 public class IbatisUserDao extends SqlMapClientDaoSupport implements UserDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(IbatisUserDao.class);
-	public User getUserByUserId (String userId) {
+	public User getUserByUsername (String username) {
 		// TODO Auto-generated method stub
 		logger.info("ibatisUserDao getUser");
-		return (User) getSqlMapClientTemplate().queryForObject("getUserByUserId", userId);
+		return (User) getSqlMapClientTemplate().queryForObject("getUserByUsername", username);
+	}
+
+
+	public User getUserByEmail (String email) {
+		return (User) getSqlMapClientTemplate().queryForObject("getUserByEmail", email);
 	}
 
 	public int insertUser(User user) {

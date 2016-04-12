@@ -4,11 +4,12 @@
     <typeAlias alias="user" type="com.alibaba.webx.adminx.dal.dataobject.User" />
     <!--
       - ===============================================
-      - 将user、account、profile三张表映射到User类
+      - 将user三张表映射到User类
       - ===============================================
      -->
     <resultMap id="userResult" class="user">
-        <result property="userId" column="USER_ID" />
+        <result property="id" column="ID" />
+        <result property="username" column="USERNAME" />
         <result property="password" column="PASSWORD" />
         <result property="email" column="EMAIL" />
         <result property="type" column="TYPE" />
@@ -16,16 +17,30 @@
     </resultMap>
     <!--
       - ===============================================
-      - 通过userId查找user、account、profile
+      - 通过userId查找user
       - ===============================================
     -->
-    <select id="getUserByUserId" resultMap="userResult" parameterClass="string"><![CDATA[
+    <select id="getUserByUsername" resultMap="userResult" parameterClass="string"><![CDATA[
         select
                 USER.*
         from
                 USER
         where
-                USER.USER_ID = #userId#
+                USER.USERNAME = #username#
+    ]]></select>
+
+    <!--
+      - ===============================================
+      - 通过email查找user
+      - ===============================================
+    -->
+    <select id="getUserByEmail" resultMap="userResult" parameterClass="string"><![CDATA[
+        select
+                USER.*
+        from
+                USER
+        where
+                USER.EMAIL = #email#
     ]]></select>
 
     <!--
@@ -35,13 +50,13 @@
     -->
     <insert id="insertUser" parameterClass="user"><![CDATA[
         insert into USER (
-                USER_ID,
+                USERNAME,
                 PASSWORD,
                 EMAIL,
                 TYPE,
                 ROLE
         ) values (
-                #userId#,
+                #username#,
                 #password#,
                 #email#,
                 #type#,

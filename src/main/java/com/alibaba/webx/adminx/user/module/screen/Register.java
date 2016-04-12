@@ -25,16 +25,19 @@ public class Register {
     @Autowired
     private HttpServletResponse response;
 
-    public void execute(@Param("userId") String userId,
+    public void execute(@Param("username") String username,
                         @Param("email") String email,
                         @Param("password") String password) {
 
-        logger.info("register " + userId);
-        userManager.getUser("");
-        logger.info("？");
-        User user = new User(userId, password, email, User.TYPE_NORM, User.ROLE_USER);
-        userManager.register(user);
         ResultInfo ri = new ResultInfo(ResultInfo.CODE_OK, "register ok");
+        User user = userManager.getUser(username);
+        if (user == null) {
+            user = new User(username, password, email, User.TYPE_NORM, User.ROLE_USER);
+            userManager.register(user);
+        } else {
+            ri.setCode(ResultInfo.CODE_ERR);
+            ri.setInfo("user is already exsit!");
+        }
         String result = JSON.toJSONString(ri);
         response.setContentType("text/json");
         try {

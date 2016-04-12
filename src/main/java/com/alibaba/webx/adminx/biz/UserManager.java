@@ -17,7 +17,7 @@ public interface UserManager {
      * @param password 密码
      * @return 用户信息，如果用户名或密码不正确，则返回<code>null</code>
      */
-    User login(String userId, String password);
+    User login(String email, String password);
 
     /**
      * 注册用户。
@@ -25,6 +25,7 @@ public interface UserManager {
      * @param user 用户对象
      */
     void register(User user);
+
 
     /**
      * 更新用户的信息。
@@ -39,5 +40,5 @@ public interface UserManager {
      * @param userId 用户id
      * @return 指定id的用户
      */
-    User getUser(String userId);
+    User getUser(String email);
 }

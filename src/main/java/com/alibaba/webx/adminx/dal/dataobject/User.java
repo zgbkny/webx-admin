@@ -9,7 +9,8 @@ public class User {
     public static final int ROLE_ADMIN = 2;
     public static final int ROLE_ROOT = 3;
 
-	private String   userId;
+    private int      id;
+	private String   username;
     private String   password;
     private String   email;
     private int      role;
@@ -17,20 +18,28 @@ public class User {
 
     public User() {}
 
-    public User(String userId, String password, String email, int type, int role) {
-        this.userId = userId;
+    public User(String username, String password, String email, int type, int role) {
+        this.username = username;
         this.password = password;
         this.email = email;
         this.type = type;
         this.role = role;
     }
 
-    public String getUserId() {
-        return userId;
+    public int getId() {
+        return this.id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUserId(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

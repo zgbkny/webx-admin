@@ -13,11 +13,12 @@ public class UserManagerImpl implements UserManager {
     private UserDao userDao;
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserManagerImpl.class);
-	public User login(String userId, String password) {
+	public User login(String email, String password) {
 		// TODO Auto-generated method stub
-		logger.info("UserManagerImpl login ");
+		User user = userDao.getUserByEmail(email);
 
-		return null;
+		if (user != null && user.getPassword() == password) return user;
+		else return null;
 	}
 
 	public void register(User user) {
@@ -31,14 +32,15 @@ public class UserManagerImpl implements UserManager {
 	}
 
 
-	public User getUser(String userId) {
+	public User getUser(String email) {
 		// TODO Auto-generated method stub
 		logger.info("UserManagerImpl getUser");
 		Jedis jedis = new Jedis("localhost");
 		jedis.set("foo", "bar");
 		String value = jedis.get("foo");
 		logger.info("UserManagerImpl login " + value);
-		User user = userDao.getUserByUserId(userId);
+		//User user = userDao.getUserByUserId(userId);
+		User user = userDao.getUserByEmail(email);
 		if (user != null) {
 			logger.info("user:" + user.getPassword());
 		}
