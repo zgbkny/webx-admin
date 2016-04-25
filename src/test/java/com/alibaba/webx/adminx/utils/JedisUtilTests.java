@@ -9,13 +9,16 @@ import org.junit.Test;
  * Created by wei on 2016/4/25.
  */
 public class JedisUtilTests {
+    private int k = 0;
     @Before()
-    protected void setUp() {
-
+    public void setUp() {
+        k = 1000;
     }
 
     @Test()
     public void testGetValue() {
+        //System.out.println("hello");
+        assert(k == 1000);
         assert(JedisUtil.getValue() == 9898);
     }
 
@@ -24,8 +27,8 @@ public class JedisUtilTests {
         assert(JedisUtil.getValue() == 9898);
     }
 
-    @After()
+    /*@After()
     protected void afterDo() {
 
-    }
+    }*/
 }
