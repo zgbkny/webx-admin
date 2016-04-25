@@ -1,5 +1,6 @@
 package com.alibaba.webx.adminx.biz.impl;
 
+import com.alibaba.webx.adminx.utils.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,12 @@ import com.alibaba.webx.adminx.dal.dao.UserDao;
 import com.alibaba.webx.adminx.dal.dataobject.User;
 import redis.clients.jedis.Jedis;
 
+import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class UserManagerImpl implements UserManager {
+	private static ConcurrentHashMap<String, User> sessionMap = new ConcurrentHashMap<String, User>();
+
 	@Autowired
     private UserDao userDao;
 	
@@ -17,7 +23,12 @@ public class UserManagerImpl implements UserManager {
 		// TODO Auto-generated method stub
 		User user = userDao.getUserByEmail(email);
 
-		if (user != null && user.getPassword() == password) return user;
+		if (user != null && user.getPassword().equals(password)) {
+			String sessionId = MD5Util.getMd5(email + password);
+			user.setSessionId(sessionId);
+			sessionMap.put(sessionId, user);
+			return user;
+		}
 		else return null;
 	}
 
@@ -31,6 +42,9 @@ public class UserManagerImpl implements UserManager {
 		
 	}
 
+	public User checkSession(String sessionId) {
+		return sessionMap.get(sessionId);
+	}
 
 	public User getUser(String email) {
 		// TODO Auto-generated method stub
@@ -39,7 +53,7 @@ public class UserManagerImpl implements UserManager {
 		jedis.set("foo", "bar");
 		String value = jedis.get("foo");
 		logger.info("UserManagerImpl login " + value);
-		//User user = userDao.getUserByUserId(userId);
+
 		User user = userDao.getUserByEmail(email);
 		if (user != null) {
 			logger.info("user:" + user.getPassword());
@@ -47,4 +61,11 @@ public class UserManagerImpl implements UserManager {
 		return null;
 	}
 
+	public static class SessionTask extends TimerTask {
+
+		@Override
+		public void run() {
+			sessionMap.clear();
+		}
+	}
 }

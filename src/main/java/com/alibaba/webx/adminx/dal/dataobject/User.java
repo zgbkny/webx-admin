@@ -16,6 +16,8 @@ public class User {
     private int      role;
     private int      type;
 
+    private String   sessionId;
+
     public User() {}
 
     public User(String username, String password, String email, int type, int role) {
@@ -68,5 +70,13 @@ public class User {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

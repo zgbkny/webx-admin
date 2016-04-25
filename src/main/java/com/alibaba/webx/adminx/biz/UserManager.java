@@ -34,6 +34,8 @@ public interface UserManager {
      */
     void update(User user);
 
+    User checkSession(String sessionId);
+
     /**
      * 取得指定id的用户。
      *

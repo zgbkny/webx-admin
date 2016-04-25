@@ -15,6 +15,11 @@
         <listener-class>com.alibaba.citrus.webx.context.WebxContextLoaderListener</listener-class>
     </listener>
 
+    <!-- 初始化定时任务 -->
+    <listener>
+        <listener-class>com.alibaba.webx.adminx.TimerListner</listener-class>
+    </listener>
+
     <filter>
         <filter-name>mdc</filter-name>
         <filter-class>com.alibaba.citrus.webx.servlet.SetLoggingContextFilter</filter-class>
