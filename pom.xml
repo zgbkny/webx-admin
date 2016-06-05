@@ -81,7 +81,11 @@
             <version>4.12</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.2.2</version>
+        </dependency>
 
         <!-- ======================================== -->
         <!-- 跨域访问依赖包 -->
@@ -95,6 +99,11 @@
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>java-property-utils</artifactId>
             <version>1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.2.2</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -211,6 +220,7 @@
                 <version>2.5</version>
                 <scope>provided</scope>
             </dependency>
+
 
         </dependencies>
     </dependencyManagement>

@@ -1,6 +1,8 @@
 package com.alibaba.webx.adminx.biz.impl;
 
+import com.alibaba.webx.adminx.utils.JedisUtil;
 import com.alibaba.webx.adminx.utils.MD5Util;
+import com.alibaba.webx.adminx.utils.SerializeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class UserManagerImpl implements UserManager {
 	private static ConcurrentHashMap<String, User> sessionMap = new ConcurrentHashMap<String, User>();
 
+	private static final Jedis jedis = JedisUtil.getInstance().getJedis("", 6379);
 	@Autowired
     private UserDao userDao;
 	
@@ -26,7 +29,7 @@ public class UserManagerImpl implements UserManager {
 		if (user != null && user.getPassword().equals(password)) {
 			String sessionId = MD5Util.getMd5(email + password);
 			user.setSessionId(sessionId);
-			sessionMap.put(sessionId, user);
+			updateUserCache(sessionId, user);
 			return user;
 		}
 		else return null;
@@ -43,17 +46,11 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	public User checkSession(String sessionId) {
-		return sessionMap.get(sessionId);
+		return getUserCache(sessionId);
 	}
 
 	public User getUser(String email) {
 		// TODO Auto-generated method stub
-		logger.info("UserManagerImpl getUser");
-		Jedis jedis = new Jedis("localhost");
-		jedis.set("foo", "bar");
-		String value = jedis.get("foo");
-		logger.info("UserManagerImpl login " + value);
-
 		User user = userDao.getUserByEmail(email);
 		if (user != null) {
 			logger.info("user:" + user.getPassword());
@@ -68,4 +65,15 @@ public class UserManagerImpl implements UserManager {
 			sessionMap.clear();
 		}
 	}
+
+	public void updateUserCache(String sessionId, User user) {
+		jedis.set(sessionId.getBytes(), SerializeUtil.serialize(user));
+		jedis.expire(sessionId.getBytes(), 60);
+	}
+
+	public User getUserCache(String sessionId) {
+		User user = (User)SerializeUtil.unserialize(jedis.get(sessionId.getBytes()));
+		return user;
+	}
+
 }

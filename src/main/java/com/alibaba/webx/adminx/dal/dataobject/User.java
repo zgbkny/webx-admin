@@ -1,6 +1,8 @@
 package com.alibaba.webx.adminx.dal.dataobject;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     public static final int TYPE_NORM = 0;
     public static final int TYPE_WECHAT = 1;
