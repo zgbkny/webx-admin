@@ -18,7 +18,7 @@ public class JedisUtilTests {
     private Jedis jedis = null;
     @Before()
     public void beforeTest() {
-        jedis = JedisUtil.getInstance().getJedis("192.168.80.128", 6379);
+        //jedis = JedisUtil.getInstance().getJedis("192.168.80.128", 6379);
     }
 
     @Test()
@@ -29,7 +29,7 @@ public class JedisUtilTests {
 
     @Test()
     public void testKey() throws InterruptedException {
-        System.out.println("清空数据："+jedis.flushDB());
+        /*System.out.println("清空数据："+jedis.flushDB());
         System.out.println("判断某个键是否存在："+jedis.exists("username"));
         System.out.println("新增<'username','zzh'>的键值对："+jedis.set("username", "zzh"));
         System.out.println(jedis.exists("name"));
@@ -45,7 +45,7 @@ public class JedisUtilTests {
         System.out.println("查看键username的剩余生存时间："+jedis.ttl("username"));
         System.out.println("移除键username的生存时间："+jedis.persist("username"));
         System.out.println("查看键username的剩余生存时间："+jedis.ttl("username"));
-        System.out.println("查看键username所存储的值的类型："+jedis.type("username"));
+        System.out.println("查看键username所存储的值的类型："+jedis.type("username"));*/
     }
 
     @After()
