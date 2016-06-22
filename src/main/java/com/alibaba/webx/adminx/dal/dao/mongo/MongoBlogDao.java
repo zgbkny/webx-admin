@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
 import org.bson.Document;
 
 /**
@@ -20,15 +23,10 @@ public class MongoBlogDao implements BlogDao {
         MongoDatabase mongoDatabase = null;
         try {
             // 连接到 mongodb 服务
-            MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+            MongoClient mongoClient = new MongoClient( "192.168.80.128" , 27017 );
 
             // 连接到数据库
             mongoDatabase = mongoClient.getDatabase("adminx");
-            MongoCollection<Document> collection = mongoDatabase.getCollection("blog");
-            if (collection == null) {
-                mongoDatabase.createCollection("blog");
-                collection = mongoDatabase.getCollection("blog");
-            }
 
         } catch (Exception e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -36,11 +34,18 @@ public class MongoBlogDao implements BlogDao {
         return mongoDatabase;
     }
 
-    public List<Blog> getBlogsByKey(String key) {
+    public List<String> getBlogsByKey(String key) {
+        List<String> list = new ArrayList<String>();
+        MongoDatabase mongoDatabase = getMongoDb();
+        MongoCollection<Document> collection = mongoDatabase.getCollection("blog");
+        System.out.println("集合 选择成功" + collection);
 
-        List<Blog> list = new ArrayList<Blog>();
-        Blog blog = new Blog();
-        blog.setName("this is the mongoblogdao test");
-        return null;
+        //检索所有文档
+        FindIterable<Document> findIterable = collection.find();
+        MongoCursor<Document> mongoCursor = findIterable.iterator();
+        while(mongoCursor.hasNext()) {
+            list.add(String.valueOf(mongoCursor.next()));
+        }
+        return list;
     }
 }

@@ -9,6 +9,7 @@ public class MongoBlogDaoTests {
 
     @Test()
     public void testMongoBlog() throws InterruptedException {
-        MongoBlogDao.getMongoDb();
+        MongoBlogDao dao = new MongoBlogDao();
+        dao.getBlogsByKey("");
     }
 }

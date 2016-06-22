@@ -8,5 +8,5 @@ import java.util.List;
  * Created by wei on 2016/5/24.
  */
 public interface BlogDao {
-    List<Blog> getBlogsByKey(String key);
+    List<String> getBlogsByKey(String key);
 }
