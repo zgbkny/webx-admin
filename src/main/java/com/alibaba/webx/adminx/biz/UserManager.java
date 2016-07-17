@@ -2,6 +2,8 @@ package com.alibaba.webx.adminx.biz;
 
 import com.alibaba.webx.adminx.dal.dataobject.User;
 
+import java.util.List;
+
 
 /**
  * 有关用户的操作
@@ -43,4 +45,6 @@ public interface UserManager {
      * @return 指定id的用户
      */
     User getUser(String email);
+
+    List<User> selectUsers(String role, String type);
 }

@@ -11,7 +11,7 @@ import redis.clients.jedis.Jedis;
  */
 public class SerializeUtilTests {
     private User user = null;
-    private Jedis jedis = JedisUtil.getInstance().getJedis("192.168.80.128", 6379);
+
     @Before
     public void beforeTest() {
 
@@ -19,7 +19,7 @@ public class SerializeUtilTests {
 
     @Test
     public void testSerialize() {
-        user = new User("name1", "password1", "email134", 2, 3);
+        /*user = new User("name1", "password1", "email134", 2, 3);
         int type = 9;
         int role = 12;
         user.setType(type);
@@ -29,7 +29,7 @@ public class SerializeUtilTests {
         System.out.println(reply);
         System.out.println(jedis.get("user".getBytes()));
         user = (User)SerializeUtil.unserialize(jedis.get("user".getBytes()));
-        /*assert(user.getUsername().equals("name1"));
+        assert(user.getUsername().equals("name1"));
         assert(user.getPassword().equals("password1"));
         assert(user.getEmail().equals("email134"));
         assert(user.getType() == type);

@@ -15,7 +15,7 @@ public class JettyStart {
 	private static final Logger logger = LoggerFactory.getLogger(JettyStart.class);
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		Server server = new Server(8080);
+		Server server = new Server(8081);
 		HelloHandler hh = null;
 		User user = null;
 		WebAppContext context = new WebAppContext(DEFAULT_WEBAPP_PATH, CONTEXT);  

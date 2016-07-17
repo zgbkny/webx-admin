@@ -8,7 +8,7 @@
       - ===============================================
      -->
     <resultMap id="userResult" class="user">
-        <result property="id" column="ID" />
+        <result property="id" column="id" />
         <result property="username" column="USERNAME" />
         <result property="password" column="PASSWORD" />
         <result property="email" column="EMAIL" />
@@ -43,11 +43,15 @@
                 USER.EMAIL = #email#
     ]]></select>
 
-    <!--
-      - ===============================================
-      - 创建一个user对象
-      - ===============================================
-    -->
+    <select id="selectUsersByRoleAndType" resultMap="userResult" parameterClass="user"><![CDATA[
+        select
+            USER.*
+        from
+            USER
+        where
+            USER.role & #role# and USER.TYPE & #type# > 0
+    ]]>
+    </select>
     <insert id="insertUser" parameterClass="user"><![CDATA[
         insert into USER (
                 USERNAME,

@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class JedisUtilTests {
     private int k = 0;
-    private Jedis jedis = null;
     @Before()
     public void beforeTest() {
         //jedis = JedisUtil.getInstance().getJedis("192.168.80.128", 6379);

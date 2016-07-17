@@ -1,7 +1,6 @@
 package com.alibaba.webx.adminx.biz.impl;
 
 import com.alibaba.webx.adminx.biz.BlogManager;
-import com.alibaba.webx.adminx.dal.dao.BlogDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -11,10 +10,8 @@ import java.util.List;
  */
 public class BlogManagerImpl implements BlogManager {
 
-    @Autowired
-    private BlogDao blogDao;
 
     public List<String> getBlogsByKey() {
-        return blogDao.getBlogsByKey("");
+        return null;
     }
 }

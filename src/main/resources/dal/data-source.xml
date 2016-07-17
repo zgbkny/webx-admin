@@ -11,7 +11,7 @@
    	<!-- 数据库配置 -->  
 	<bean id= "dataSource" class="org.apache.commons.dbcp.BasicDataSource">  
 	    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>  
-	    <property name="url" value="jdbc:mysql://127.0.0.1:3306/weiwangmr.github.io"></property>
+	    <property name="url" value="jdbc:mysql://127.0.0.1:3306/adminx"></property>
 	    <property name="username" value="root"></property>  
 	    <property name="password" value="root"></property>  
 	    <property name="minIdle" value="0" ></property>  

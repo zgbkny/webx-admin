@@ -7,6 +7,8 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import com.alibaba.webx.adminx.dal.dao.UserDao;
 import com.alibaba.webx.adminx.dal.dataobject.User;
 
+import java.util.List;
+
 public class IbatisUserDao extends SqlMapClientDaoSupport implements UserDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(IbatisUserDao.class);
@@ -23,5 +25,10 @@ public class IbatisUserDao extends SqlMapClientDaoSupport implements UserDao {
 
 	public int insertUser(User user) {
 		return getSqlMapClientTemplate().update("insertUser", user);
+	}
+
+	public List<User> selectUsers(User user) {
+		logger.info(String.format("ibatisUserDao selectUsers role:%d type:%d", user.getRole(), user.getType()));
+		return (List<User>) getSqlMapClientTemplate().queryForList("selectUsersByRoleAndType", user);
 	}
 }
